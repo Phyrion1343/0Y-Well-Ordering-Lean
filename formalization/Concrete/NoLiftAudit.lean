@@ -19,3 +19,24 @@ import NoLiftConcrete
 #print axioms ZeroY.NoLift.Concrete.certified_trajectory_terminates
 #print axioms ZeroY.NoLift.Concrete.selected_trajectory_terminates
 #print axioms ZeroY.NoLift.Concrete.restrictedStep_wellFounded
+
+#print axioms ZeroY.NoLift.freezeExpand_prefix
+#print axioms ZeroY.NoLift.freezeExpand_preserves_prefix
+#print axioms ZeroY.NoLift.freezeExpand_lt
+#print axioms ZeroY.NoLift.frozenFamilies_cover
+#print axioms ZeroY.NoLift.certifiedStep_covered
+#print axioms ZeroY.NoLift.Order.prefix_barrier
+#print axioms ZeroY.NoLift.Order.descendants_minimum
+#print axioms ZeroY.NoLift.Order.descendant_lex_wellFounded
+#print axioms ZeroY.NoLift.Concrete.internalDescendants_strictWellOrder
+#print axioms ZeroY.NoLift.Concrete.directRootDescendants_strictWellOrder
+#print axioms ZeroY.NoLift.Concrete.eitherDescendants_strictWellOrder
+#print axioms ZeroY.NoLift.Concrete.restrictedDescendants_strictWellOrder
+
+#print axioms ZeroY.NoLift.certifiedStep_seed_iff
+#print axioms ZeroY.NoLift.seed_descendant_below
+#print axioms ZeroY.NoLift.certifiedGenerated_strictWellOrder
+#print axioms ZeroY.NoLift.Concrete.internalGenerated_strictWellOrder
+#print axioms ZeroY.NoLift.Concrete.directRootGenerated_strictWellOrder
+#print axioms ZeroY.NoLift.Concrete.eitherGenerated_strictWellOrder
+#print axioms ZeroY.NoLift.Concrete.restrictedGenerated_strictWellOrder

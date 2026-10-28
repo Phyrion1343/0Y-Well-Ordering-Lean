@@ -4,7 +4,7 @@
 
 本工程以独立定义并证明的数学算法为规格；原 HTML 程序的正确性不是任何定理的前提。
 
-两种无提升策略的新增实现、证书检查与最终终止定理见 [NoLift.md](NoLift.md)。这部分覆盖坏部内部冻结版、坏根直连版及二者逐步混用；没有把下面普通展开后代集的字典序良序结论直接移用于新规则。新增核心模块由 `ZeroY.lean` 导入；具体模型入口为 [NoLiftConcrete.lean](Concrete/NoLiftConcrete.lean)。
+两种无提升策略的实现、证书检查、终止及字典序良序定理见 [NoLift.md](NoLift.md)。这部分覆盖坏部内部冻结版、坏根直连版及二者逐步混用；固定起点后代集与新规则生成集的良序性经[有限前缀族与种子初段兼容性](NoLiftLexicographic.md)另行证明。新增核心模块由 `ZeroY.lean` 导入；具体模型入口为 [NoLiftConcrete.lean](Concrete/NoLiftConcrete.lean)。
 
 ## 已通过内核检查的主要结果
 
@@ -65,7 +65,7 @@ Lean 固定为 `leanprover/lean4:v4.33.1`。便携运行时位于仓库的 `.too
 ../.tools/lean-4.33.1-windows/bin/lake.exe env lean Audit.lean
 ```
 
-原有核心总入口于 2026-09-10 构建通过 66 个任务；43 个关键声明的 `#print axioms` 检查退出 0，仅依赖 Lean 标准公理 `propext`、`Classical.choice`、`Quot.sound` 的子集，无 `sorryAx`、原生计算公理或自定义公理。完整输出保存在 [audit-output.txt](audit-output.txt)。2026-10-29 加入无提升模块后，`lake --wfail build ZeroY` 通过 70 个任务；新增的 19 项审计另见 [无提升审计输出](Concrete/nolift-audit-output.txt)。
+原有核心总入口于 2026-09-10 构建通过 66 个任务；43 个关键声明的 `#print axioms` 检查退出 0，仅依赖 Lean 标准公理 `propext`、`Classical.choice`、`Quot.sound` 的子集，无 `sorryAx`、原生计算公理或自定义公理。完整输出保存在 [audit-output.txt](audit-output.txt)。2026-10-29 加入无提升及字典序良序模块后，`lake --wfail build ZeroY` 通过 76 个任务；无提升模块的 38 项审计另见 [无提升审计输出](Concrete/nolift-audit-output.txt)。
 
 完整具体模型从锁定源码构建通过 1576 个任务，另有 14 项公理审计通过，依赖也仅为上述三个标准公理。在工作区根目录运行：
 

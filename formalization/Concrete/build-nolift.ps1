@@ -28,7 +28,7 @@ try {
   $taskAuditText = Get-Content -LiteralPath 'nolift-audit-output.txt' -Raw
   $taskAudits = [regex]::Matches($taskAuditText,
     "'(?<name>[^']+)' depends on axioms:\s*\[(?<axioms>[^\]]*)\]")
-  if ($taskExpected.Count -ne 19 -or $taskAudits.Count -ne $taskExpected.Count) {
+  if ($taskExpected.Count -ne 38 -or $taskAudits.Count -ne $taskExpected.Count) {
     throw 'No-lift audit declaration count mismatch.'
   }
   $taskSeen = @{}
@@ -45,7 +45,7 @@ try {
       }
     }
   }
-  Write-Output 'All 19 no-lift axiom audits passed.'
+  Write-Output 'All 38 no-lift axiom audits passed.'
 }
 finally {
   Pop-Location

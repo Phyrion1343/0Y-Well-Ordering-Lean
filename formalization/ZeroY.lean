@@ -17,4 +17,4 @@ import ZeroY.Seed
 import ZeroY.Dynamics.Equivalence
 import ZeroY.Dynamics.Termination
 import ZeroY.Wiki.Termination
-import ZeroY.NoLift.WellFounded
+import ZeroY.NoLift.SeedOrder

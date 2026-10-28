@@ -1,8 +1,8 @@
-# 两种冻结展开的良基性形式化
+# 两种冻结展开的良序与终止形式化
 
 “把后续表达式才出现的弱展开提前到原表达式”这一设想由原 0-Y 展开器作者提出。本目录围绕这一设想，形式化内部侧枝版与坏根直连版共用的数值构造、可执行下降证书，以及通过证书后的展开终止性。
 
-证明适用于全部合法 0-Y 表达式：空序列，或首项为 1、各项为正整数的有限序列；不要求输入是标准式。这里的结论是**所定义展开关系良基，持续采用认证步骤的迭代必到空式**。它不是全部合法表达式的字典序良序，也不是“完美无提升”定理。
+证明适用于全部合法 0-Y 表达式：空序列，或首项为 1、各项为正整数的有限序列；不要求输入是标准式。已经证明**认证展开关系良基、迭代必到空式，以及任意固定起点的全部后代按字典序良序**。从全部普通标准种子出发、按新规则生成的集合也按字典序良序。这些结论均允许两种策略逐步混用；它们没有断言全部合法表达式的字典序良序，也不是“完美无提升”定理。
 
 ## 两派的具体构造
 
@@ -58,6 +58,16 @@ $$
 - `certified_trajectory_terminates`、`selected_trajectory_terminates`；
 - `restrictedStep_wellFounded`，供进一步限制认证步骤使用。
 
+## 后代集与生成集的字典序良序
+
+这一部分使用了冻结构造本身的结构，不仅依赖下降证书。固定冻结集时，各参数输出互为前缀；固定输入只有有限种冻结集。每一步严格降低字典序、保留输入去尾前缀，且零次展开可删除末项。[DescendantOrder.lean](ZeroY/NoLift/DescendantOrder.lean) 由这些性质证明前缀屏障，再沿展开关系的良基性归纳，得到固定起点的后代集字典序良序。
+
+证明允许每个冻结族只有部分参数通过认证，也允许最终选中的冻结集随参数改变；没有增加“所有参数选同一冻结集”的假设。[Lexicographic.lean](ZeroY/NoLift/Lexicographic.lean) 将这个通用定理应用于两派及其并集。进一步筛选产生的后代集合是其子集，因此也继承良序。
+
+[SeedOrder.lean](ZeroY/NoLift/SeedOrder.lean) 另外证明各种子后代集按字典序初段兼容，因而把结论推广到所有有限高度种子的生成集之并。这里的生成式指新规则从普通种子生成的式子，不表示它们全是普通 0-Y 标准式。
+
+具体模型的最终出口包括 `internalDescendants_strictWellOrder`、`directRootDescendants_strictWellOrder`、`eitherDescendants_strictWellOrder`，以及对应的 `internalGenerated_strictWellOrder`、`directRootGenerated_strictWellOrder`、`eitherGenerated_strictWellOrder`。`restrictedDescendants_strictWellOrder` 和 `restrictedGenerated_strictWellOrder` 覆盖任意进一步限制的规则。直观证明见 [字典序良序证明说明](NoLiftLexicographic.md)。
+
 ## 尚未包含的结论
 
 本次形式化没有把 HTML 程序的全部搜索过程证明为 Lean 程序的实现：候选子集枚举、两块来源筛选、贪心寻找来源路径、具体字典序最小选择及资源限额处理，仍需各自的实现对应证明。可执行证书检查的可靠性与整个 JavaScript 搜索的正确性是不同的结论。
@@ -70,7 +80,7 @@ $$
 
 祖先证书也不自动证明来源表达式 $B_F$ 是 $s$ 的普通展开后代。普通路径分支只认证证书实际给出的路径。
 
-此外，本次没有证明标准式闭包、原序数值保持、识别全部应提前的弱展开、全局无提升，或新规则后代集合的字典序良序。任意进一步来源筛选均可继承认证关系的良基性，但筛选自身具有何种数学含义，仍需单独论证。
+此外，本次没有证明普通标准式闭包、原序数值保持、识别全部应提前的弱展开或全局无提升。任意进一步来源筛选均可继承认证关系的良基性与后代集良序性，但筛选自身具有何种数学含义，仍需单独论证。
 
 ## 复核入口
 
@@ -86,4 +96,4 @@ lake --wfail build ZeroY
 
 [Concrete/build-nolift.ps1](Concrete/build-nolift.ps1) 使用 Windows 本地依赖布局，执行 `lake --keep-toolchain --no-cache build NoLiftConcrete`，随后运行 `lake env lean NoLiftAudit.lean`。[NoLiftAudit.lean](Concrete/NoLiftAudit.lean) 明列审核对象；脚本只允许 `propext`、`Classical.choice`、`Quot.sound`。
 
-2026-10-29 的发布核验中，主工程构建完成 70 个任务，具体模型增量构建（含依赖）完成 1573 个任务；19 项公理审核全部通过，各声明仅依赖上述三个标准公理的子集。
+构建与公理审核的实际结果、日期及核验范围见 [验证记录](VALIDATION.md)。初次终止性更新检查 19 项声明；加入字典序良序证明后，审核清单扩展为 38 项。
