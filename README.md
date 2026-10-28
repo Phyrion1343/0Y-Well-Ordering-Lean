@@ -2,6 +2,8 @@
 
 本项目给出 0-Y 与 BM4（Bashicu Matrix System）的数学证明及 Lean 4.33.1 形式化。编码、解码和 0-Y 展开均独立定义；结论不以任何外部互译程序的正确性为前提。
 
+2026-10-29 新增[两种无提升策略的形式化](formalization/NoLift.md)：坏部内部冻结版与坏根直连版均有实际冻结构造和有限证书检查器；通过检查的展开关系良基，任意逐步选择及两版混用均终止于空式。19 项新增公理审计通过。这里证明的是证书式展开的良基性与终止性；新版后代集的字典序良序性、完美无提升以及 HTML 整体实现与形式化的等价性尚未证明。下列原有良序结论仍指普通 0-Y 展开。
+
 ## 已证明的结论
 
 - 对所有合法 0-Y 表达式，先编码再解码恢复原式。
@@ -32,6 +34,7 @@
 ./formalization/prepare-dependencies.ps1
 ./formalization/build.ps1
 ./formalization/Concrete/build.ps1
+./formalization/Concrete/build-nolift.ps1
 ```
 
 便携 Lean 安装在仓库的 `.tools` 中。依赖准备脚本按 [锁定记录](formalization/Concrete/dependencies-lock.json) 恢复源码，并应用两个保持公开陈述不变的上游证明性能补丁。下载归档会检查 SHA256。源码依赖和构建产物不提交到本仓库。

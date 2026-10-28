@@ -15,3 +15,5 @@ require «bms-constructible-bridge» from
 
 @[default_target]
 lean_lib ZeroYConcrete
+
+lean_lib NoLiftConcrete

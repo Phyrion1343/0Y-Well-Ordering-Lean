@@ -4,6 +4,10 @@
 `reflectionData_l.wellOrderingModel.representationDescentSystem`
 代入主工程的良序、无无限下降链及任意选指标轨迹终止定理。这里的最终定理不要求调用者提供降界系统。
 
+[NoLiftConcrete.lean](NoLiftConcrete.lean) 将同一模型代入两种无提升策略的证书式展开关系，证明各自及其并集良基、无无限展开链、任意合法起点的证书轨迹终止于空式。定义和范围见 [NoLift.md](../NoLift.md)。这些新增定理没有断言新版后代集按字典序良序。
+
+新增模块单独执行 `./build-nolift.ps1`，或构建完成后执行 `./build-nolift.ps1 -AuditOnly`。脚本检查 [NoLiftAudit.lean](NoLiftAudit.lean) 的 19 项公理依赖，保存为 [nolift-audit-output.txt](nolift-audit-output.txt)。2026-10-29 本机增量构建通过 1573 个任务，19 项审计全部通过；复用既有依赖构建产物，上游原有风格警告保留。
+
 ## 工具链与依赖
 
 实际编译统一使用 Lean **4.33.1**。上游 constructible-universe 与其锁定的
